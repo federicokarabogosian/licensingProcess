@@ -1,1 +1,1 @@
-# licencingProcess
+# licensingProcess
