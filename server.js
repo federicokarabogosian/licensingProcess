@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+var mongoose = require('mongoose');
 var app = require('./app');
 var debug = require('debug')('express:server');
 var http = require('http');
@@ -20,14 +21,20 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
+var mongoDB = 'mongodb://localhost:27017/licensing-dev';
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoDB,{useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open',function() {
+  console.log("MongoDB connection open");
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
 /**
  * Normalize a port into a number, string, or false.
  */
