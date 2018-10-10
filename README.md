@@ -30,16 +30,16 @@ Pendiente.
 #### Clonar proyecto
 #### Instalar dependencias
 Instalar las dependencias del proyecto:
-'''
+```
 npm install
-'''
+```
 Instalar el mocha para que pueda ser ejecutado de forma global:
-'''
+```
 npm install -g mocha
-'''
+```
 ### Ejecución
 #### Ejecutar pruebas
-'''
+```
 mocha ./test --recursive --timeout 15000
-'''
+```
 #### Ejecutar proyecto
