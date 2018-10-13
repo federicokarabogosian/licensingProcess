@@ -8,6 +8,8 @@ if (!userArgs[0].startsWith('mongodb://')) {
 
 var async = require('async')
 var Movie = require('./models/movie')
+var Track = require('./models/track')
+var Song = require('./models/song')
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
@@ -17,6 +19,8 @@ var db = mongoose.connection;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var movies = []
+var tracks = []
+var songs = []
 
 function movieCreate(name, director, year, callback){
   //let movieDetail = {name: name, director: director, year: year};
@@ -30,6 +34,32 @@ function movieCreate(name, director, year, callback){
     console.log('New Movie: '+ movie)
     movies.push(movie)
     callback(null, movie)
+  });
+};
+
+function trackCreate(name, startTime, endTime, movie, callback){
+  let track = new Track({name: name, startTime: startTime, endTime: endTime, movie: movie});
+  track.save(function (err) {
+    if (err) {
+      callback(err, null)
+      return
+    }
+    console.log('New Track: '+ track)
+    tracks.push(track)
+    callback(null, track)
+  });
+};
+
+function songCreate(name, artist, owner, callback){
+  let song = new Song({name: name, artist: artist, owner: owner});
+  song.save(function (err) {
+    if (err) {
+      callback(err, null)
+      return
+    }
+    console.log('New Song: '+ song)
+    tracks.push(song)
+    callback(null, song)
   });
 };
 
@@ -48,8 +78,40 @@ function createMovies(callback) {
   callback);
 };
 
+function createTracks(callback) {
+  async.parallel([
+    function(callback) {
+      trackCreate('Track001', 0, 2000, movies[0], callback);
+    },
+    function(callback) {
+      trackCreate('Track002', 2001, 5000, movies[0], callback);
+    },
+    function(callback) {
+      trackCreate('End titles', 9000, 2000, movies[1],callback);
+    }
+  ],
+  callback);
+};
+
+function createSongs(callback) {
+  async.parallel([
+    function(callback) {
+      songCreate('Blade Runner (End Titles)', 'Vangelis','Universal Music Group', callback);
+    },
+    function(callback) {
+      songCreate('Symphony No. 2, Romantic', 'Howard Hanson', 'Intrada Records', callback);
+    },
+    function(callback) {
+      songCreate('The Landing', 'Lionel Newman', 'Sony', callback);
+    }
+  ],
+  callback);
+};
+
 async.series([
-  createMovies
+  createMovies,
+  createTracks,
+  createSongs
 ],
 function(err, result){
   if(err) {
