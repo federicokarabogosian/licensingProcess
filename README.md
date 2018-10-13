@@ -37,6 +37,10 @@ Instalar el mocha para que pueda ser ejecutado de forma global:
 ```
 npm install -g mocha
 ```
+Poblar la base de datos con datos de ejemplos
+```
+node populatedb mongodb://localhost:27017/licensing-dev
+```
 ### Ejecución
 #### Ejecutar pruebas
 Se requiere tener el servidor ejecutandose para realizar las pruebas
