@@ -17,7 +17,7 @@ Proyecto de laboratorio para aprender a desarrollar sobre NodeJS.
 Se decide utilizar una base de datos NoSQL, especificamente MongoDB debido a:
 - El proyecto no se basa en transacciones.
 - Su flexibilidad permite la futura evolución del diseño del workflow. En esta versión inicial es simple.
-- Su felxibilidad permite la futura evolución del diseño del workflow a otros tipos de procesos relacionados. En esta versión inicial solo se relaciona con el proceso de licenciamiento.
+- Su flexibilidad permite la futura evolución del diseño del workflow a otros tipos de procesos relacionados. En esta versión inicial solo se relaciona con el proceso de licenciamiento.
 
 ## Propuesta de solución para visibilidad inmediata
 Pendiente.
@@ -39,7 +39,15 @@ npm install -g mocha
 ```
 ### Ejecución
 #### Ejecutar pruebas
+Se requiere tener el servidor ejecutandose para realizar las pruebas
 ```
-mocha ./test --recursive --timeout 15000
+npm start
+```
+Luego se ejecutan las pruebas
+```
+npm test
 ```
 #### Ejecutar proyecto
+```
+npm start
+```
