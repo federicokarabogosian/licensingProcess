@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var trackRouter = require('./routes/track');
 var licensingRouter = require('./routes/licensing');
+var movieRouter = require('./routes/movie');
+var songRouter = require('./routes/song');
 
 var app = express();
 
@@ -26,5 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/track', trackRouter);
 app.use('/licensing', licensingRouter);
+app.use('/movie', movieRouter);
+app.use('/song', songRouter);
 
 module.exports = app;
