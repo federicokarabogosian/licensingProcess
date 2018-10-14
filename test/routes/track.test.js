@@ -18,7 +18,7 @@ describe('Track Route', function() {
     it('Should create a valid track to an existing movie', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",startTime:5000,endTime:9000,movieId:"5bc2357d180aa926a806377e"})
+      .send({name:"Now we are free",startTime:5000,endTime:9000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(200);
         done();
@@ -27,7 +27,7 @@ describe('Track Route', function() {
     it('Should not create a duplicated track', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",startTime:5000,endTime:9000,movieId:"5bc2357d180aa926a806377e"})
+      .send({name:"Now we are free",startTime:5000,endTime:9000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
         done();
@@ -36,43 +36,47 @@ describe('Track Route', function() {
     it('Should not create a track without name', (done) => {
       chai.request(url)
       .post('/track')
-      .send({startTime:10000,endTime:12000,movieId:"5bc2357d180aa926a806377e"})
+      .send({startTime:10000,endTime:12000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
+        expect(res.text).to.contain('The track must have a name');
         done();
       });
     });
     it('Should not create a track without an existing movie', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",startTime:5000,endTime:9000,movieId:"1"})
+      .send({name:"The Emperor Is Dead",startTime:5000,endTime:9000,movieId:"5bc24229183d66268496f8aa"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
+        expect(res.text).to.contain('The track must be associated with a movie');
         done();
       });
     });
     it('Should not create a track without start time', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",endTime:2000,movieId:"5bc2357d180aa926a806377e"})
+      .send({name:"Strength and Honor",endTime:2000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
+        expect(res.text).to.contain('The track must have a start time');
         done();
       });
     });
     it('Should not create a track without end time', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",startTime:1000,movieId:"5bc2357d180aa926a806377e"})
+      .send({name:"Honor Him",startTime:1000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
+        expect(res.text).to.contain('The track must have a end time');
         done();
       });
     });
     it('Should not create a track with end time minor that start time', (done) => {
       chai.request(url)
       .post('/track')
-      .send({name:"Now we are free",startTime:3000,endTime:2000,movieId:"5bc2357d180aa926a806377e"})
+      .send({name:"Am I Not Merciful?",startTime:3000,endTime:2000,movieId:"5bc24229183d66268496f8a8"})
       .end( function(err,res) {
         expect(res).to.have.status(400);
         done();
