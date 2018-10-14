@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 // Routers
 var indexRouter = require('./routes/index');
+var trackRouter = require('./routes/track');
 
 var app = express();
 
@@ -22,5 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //
 app.use('/', indexRouter);
+app.use('/track', trackRouter);
 
 module.exports = app;
