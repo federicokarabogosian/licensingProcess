@@ -3,6 +3,16 @@ var mongoose = require('mongoose');
 var Licensing = require('../models/licensing');
 var router = express.Router();
 
+router.get('/', function(req, res, next) {
+  Licensing.find({}, function(err, licensings) {
+    if(err){
+      res.status(500).send(err.message);
+    }else{
+      res.status(200).jsonp(licensings);
+    }
+   });
+});
+
 router.post('/', function(req, res, next) {
   var licensing = new Licensing({
     status: req.body.status,

@@ -3,6 +3,16 @@ var mongoose = require('mongoose');
 var Track = require('../models/track');
 var router = express.Router();
 
+router.get('/', function(req, res, next) {
+  Track.find({}, function(err, tracks) {
+    if(err){
+      res.status(500).send(err.message);
+    }else{
+      res.status(200).jsonp(tracks);
+    }
+   });
+});
+
 router.post('/', function(req, res, next) {
   var track = new Track({
     name: req.body.name,
