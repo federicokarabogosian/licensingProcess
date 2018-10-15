@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     }else{
       res.status(200).jsonp(licensings);
     }
-   });
+  }).populate('track').populate('song');
 });
 
 router.post('/', function(req, res, next) {

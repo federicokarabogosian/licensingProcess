@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     }else{
       res.status(200).jsonp(tracks);
     }
-   });
+   }).populate('movie');
 });
 
 router.post('/', function(req, res, next) {
