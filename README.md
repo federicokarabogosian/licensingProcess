@@ -51,6 +51,7 @@ Luego se ejecutan las pruebas
 ```
 npm test
 ```
+Nota sobre los test: en esta version los test generan Tracks y Licensings haciendo referencia a objetos Movie y Song inexistentes. Estos objetos creados deben ser borrados de la base de datos ya que sino el frontend no obtiene ningun objeto si existen referencias erroneas.
 #### Ejecutar proyecto
 ```
 npm start
